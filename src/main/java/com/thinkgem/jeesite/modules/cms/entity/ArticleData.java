@@ -32,7 +32,8 @@ import com.thinkgem.jeesite.common.persistence.BaseEntity;
  */
 @Entity
 @Table(name = "cms_article_data")
-@DynamicInsert @DynamicUpdate
+@DynamicInsert
+@DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ArticleData extends BaseEntity<ArticleData> {
 

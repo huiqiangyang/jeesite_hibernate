@@ -3,9 +3,10 @@
  */
 package com.thinkgem.jeesite.modules.email.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.email.entity.Mail;
+import com.thinkgem.jeesite.modules.email.service.EmailService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,16 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thinkgem.jeesite.common.config.Global;
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.sys.entity.User;
-import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
-import com.thinkgem.jeesite.modules.email.entity.Product;
-import com.thinkgem.jeesite.modules.email.service.ProductService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 产品Controller
@@ -34,14 +28,14 @@ import com.thinkgem.jeesite.modules.email.service.ProductService;
 public class EmailController extends BaseController {
 
 	@Autowired
-	private ProductService productService;
+	private EmailService emailService;
 	
 	@ModelAttribute
-	public Product get(@RequestParam(required=false) String id) {
+	public Mail get(@RequestParam(required=false) String id) {
 		if (StringUtils.isNotBlank(id)){
-			return productService.get(id);
+			return emailService.get(id);
 		}else{
-			return new Product();
+			return new Mail();
 		}
 	}
 
@@ -59,7 +53,7 @@ public class EmailController extends BaseController {
         return "modules/" + "email/receiveList";
 	}
 
-	@RequiresPermissions("factory:product:view")
+/*	@RequiresPermissions("factory:product:view")
 	@RequestMapping(value = "form")
 	public String form(Product product, Model model) {
 		model.addAttribute("product", product);
@@ -83,6 +77,6 @@ public class EmailController extends BaseController {
 		productService.delete(id);
 		addMessage(redirectAttributes, "删除产品成功");
 		return "redirect:"+Global.getAdminPath()+"/factory/product/?repage";
-	}
+	}*/
 
 }
