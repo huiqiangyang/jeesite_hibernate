@@ -1,4 +1,4 @@
-﻿/* jBox 测试代码开始 */
+﻿﻿/* jBox 测试代码开始 */
 var skin2 = false;
 $(function () {
     changeSkin();

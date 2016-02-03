@@ -5,10 +5,12 @@
     <title>用户管理</title>
     <meta name="decorator" content="default"/>
     <%@include file="/WEB-INF/views/include/dialog.jsp" %>
-    <style type="text/css">.sort {
-        color: #0663A2;
-        cursor: pointer;
-    }</style>
+    <style type="text/css">
+        .sort {
+            color: #0663A2;
+            cursor: pointer;
+        }
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             // 表格排序
@@ -16,10 +18,13 @@
 
             $("#btnExport").click(function () {
                 top.$.jBox.confirm("确认要导出用户数据吗？", "系统提示", function (v, h, f) {
-                    if (v == "ok") {
-                        $("#searchForm").attr("action", "${ctx}/sys/user/export").submit();
-                    }
-                }, {buttonsFocus: 1});
+                            if (v == "ok") {
+                                $("#searchForm").attr("action", "${ctx}/sys/user/export").submit();
+                            }
+                        },
+                        {
+                            buttonsFocus: 1
+                        });
                 top.$('.jbox-body .jbox-icon').css('top', '55px');
             });
 

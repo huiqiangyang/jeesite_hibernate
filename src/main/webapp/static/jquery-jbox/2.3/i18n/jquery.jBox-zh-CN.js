@@ -1,4 +1,4 @@
-﻿/* jBox 全局设置 */
+﻿﻿/* jBox 全局设置 */
 var jBoxConfig = {};
 
 jBoxConfig.defaults = {

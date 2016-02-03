@@ -45,6 +45,8 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
+
+            //绑定菜单点击事件
             $("#menu a.menu").click(function () {
                 $("#menu li.menu").removeClass("active");
                 $(this).parent().addClass("active");
