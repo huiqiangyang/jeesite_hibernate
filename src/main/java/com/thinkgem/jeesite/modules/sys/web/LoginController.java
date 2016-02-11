@@ -71,6 +71,7 @@ public class LoginController extends BaseController{
 		return "modules/sys/sysLogin";
 	}
 
+
 	/**
 	 * 登录成功，进入管理首页
 	 */

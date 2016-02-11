@@ -47,12 +47,12 @@
     <ul>
         <c:forEach items="${page.list}" var="guestbook">
             <li>
-                <h5>姓名: ${guestbook.name} &nbsp;时间：<fmt:formatDate value="${guestbook.createDate}"
-                                                                   pattern="yyyy-MM-dd HH:mm:ss"/></h5>
+                <h5>姓名: ${guestbook.name} &nbsp;时间：
+                    <fmt:formatDate value="${guestbook.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></h5>
 
                 <div>内容：${guestbook.content}</div>
-                <h6>回复人：${guestbook.reUser.name} 时间：<fmt:formatDate value="${guestbook.reDate}"
-                                                                    pattern="yyyy-MM-dd HH:mm:ss"/></h6>
+                <h6>回复人：${guestbook.reUser.name} 时间：
+                    <fmt:formatDate value="${guestbook.reDate}" pattern="yyyy-MM-dd HH:mm:ss"/></h6>
 
                 <div>回复内容：${guestbook.reContent}</div>
             </li>

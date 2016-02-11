@@ -72,7 +72,6 @@
 </div>
 <div id="linkBody" class="control-group" style="display:none">
     <label class="control-label" for="link">外部链接:</label>
-
     <div class="controls">
         <form:input path="link" htmlEscape="false" maxlength="200" class="input-xlarge"/>
         <span class="help-inline">绝对或相对地址。</span>
@@ -265,8 +264,9 @@
     </div>
 </c:if>
 <div class="form-actions">
-    <shiro:hasPermission name="cms:article:edit"><input id="btnSubmit" class="btn btn-primary" type="submit"
-                                                        value="保 存"/>&nbsp;</shiro:hasPermission>
+    <shiro:hasPermission name="cms:article:edit">
+        <input id="btnSubmit" class="btn btn-primary" type="submit"
+               value="保 存"/>&nbsp;</shiro:hasPermission>
     <input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 </div>
 </form:form>

@@ -86,6 +86,14 @@
     </function>
 
     <function>
+        <description>获取首页滚动文章列表</description>
+        <name>getIndexArticleList</name>
+        <function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+        <function-signature>java.util.List getIndexArticleList(int)</function-signature>
+        <example>${fnc:getArticleList(size)}</example>
+    </function>
+
+    <function>
         <description>获取链接</description>
         <name>getLink</name>
         <function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>

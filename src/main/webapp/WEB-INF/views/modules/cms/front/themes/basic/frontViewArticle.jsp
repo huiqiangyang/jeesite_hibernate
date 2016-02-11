@@ -5,7 +5,7 @@
 <head>
     <title>${article.title} - ${category.name}</title>
     <meta name="decorator" content="cms_default_${site.theme}"/>
-    <meta name="description" content="${article.description} ${category.description}"/>
+    <%--<meta name="description" content="${article.description} ${category.description}"/>--%>
     <meta name="keywords" content="${article.keywords} ${category.keywords}"/>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -15,7 +15,7 @@
             }
         });
         function page(n, s) {
-            $.get("${ctx}/comment", {theme: '${category.site.theme}', 'category.id': '${category.id}',
+            $.get("${ctx}/listComment", {theme: '${category.site.theme}', 'category.id': '${category.id}',
                 contentId: '${article.id}', title: '${article.title}', pageNo: n, pageSize: s, date: new Date().getTime()
             }, function (data) {
                 $("#comment").html(data);

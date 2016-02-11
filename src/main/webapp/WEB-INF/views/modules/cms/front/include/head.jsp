@@ -17,4 +17,5 @@
     <link href="${ctxStatic}/common/jeesite.min.css" type="text/css" rel="stylesheet"/>
     <link href="${ctxStaticTheme}/style.min.css" type="text/css" rel="stylesheet"/>
     <script src="${ctxStaticTheme}/script.min.js" type="text/javascript"></script>
+
 </c:if>

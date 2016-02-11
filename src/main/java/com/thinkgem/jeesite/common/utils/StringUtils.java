@@ -83,6 +83,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		return "";
 	}
 
+
 	/**
 	 * 缩略字符串（替换html）
 	 * @param str 目标字符串

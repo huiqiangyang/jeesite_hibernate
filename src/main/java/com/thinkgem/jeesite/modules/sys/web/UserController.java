@@ -50,7 +50,7 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private SystemService systemService;
-	
+
 	@ModelAttribute
 	public User get(@RequestParam(required=false) String id) {
 		if (StringUtils.isNotBlank(id)){
@@ -59,7 +59,15 @@ public class UserController extends BaseController {
 			return new User();
 		}
 	}
-	
+
+    /**
+     * 显示用户列表
+     * @param user
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping({"list", ""})
 	public String list(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -94,9 +102,20 @@ public class UserController extends BaseController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("allRoles", systemService.findAllRole());
+
 		return "modules/sys/userForm";
 	}
 
+    /**
+     * 用户信息修改
+     * @param user
+     * @param oldLoginName
+     * @param newPassword
+     * @param request
+     * @param model
+     * @param redirectAttributes
+     * @return
+     */
 	@RequiresPermissions("sys:user:edit")
 	@RequestMapping("save")
 	public String save(User user, String oldLoginName, String newPassword, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
@@ -142,7 +161,13 @@ public class UserController extends BaseController {
 		addMessage(redirectAttributes, "保存用户'" + user.getLoginName() + "'成功");
 		return "redirect:" + Global.getAdminPath() + "/sys/user/?repage";
 	}
-	
+
+    /**
+     * 用户删除
+     * @param id
+     * @param redirectAttributes
+     * @return
+     */
 	@RequiresPermissions("sys:user:edit")
 	@RequestMapping("delete")
 	public String delete(String id, RedirectAttributes redirectAttributes) {
@@ -161,7 +186,15 @@ public class UserController extends BaseController {
 		}
 		return "redirect:" + Global.getAdminPath() + "/sys/user/?repage";
 	}
-	
+
+    /**
+     * 用户数据Excel数据导出
+     * @param user
+     * @param request
+     * @param response
+     * @param redirectAttributes
+     * @return
+     */
 	@RequiresPermissions("sys:user:view")
     @RequestMapping(value = "export", method=RequestMethod.POST)
     public String exportFile(User user, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
@@ -176,6 +209,12 @@ public class UserController extends BaseController {
 		return "redirect:" + Global.getAdminPath() + "/sys/user/?repage";
     }
 
+    /**
+     * Excel 批量导入用户
+     * @param file
+     * @param redirectAttributes
+     * @return
+     */
 	@RequiresPermissions("sys:user:edit")
     @RequestMapping(value = "import", method=RequestMethod.POST)
     public String importFile(MultipartFile file, RedirectAttributes redirectAttributes) {
@@ -221,7 +260,13 @@ public class UserController extends BaseController {
 		}
 		return "redirect:" + Global.getAdminPath() + "/sys/user/?repage";
     }
-	
+
+    /**
+     * 用户导入数据模板下载
+     * @param response
+     * @param redirectAttributes
+     * @return
+     */
 	@RequiresPermissions("sys:user:view")
     @RequestMapping("import/template")
     public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {

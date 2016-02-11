@@ -28,7 +28,8 @@ import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
  */
 @Entity
 @Table(name = "oa_leave")
-@DynamicInsert @DynamicUpdate
+@DynamicInsert
+@DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Leave extends IdEntity<Leave> {
 	

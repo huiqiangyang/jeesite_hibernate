@@ -8,4 +8,4 @@
      class="mid ${name}"/>
 <a href="javascript:"
    onclick="$('.${name}').attr('src','${pageContext.request.contextPath}/servlet/validateCodeServlet?'+new Date().getTime());"
-   class="mid ${name}Refresh">看不清</a>
+   class="btn mid ${name}Refresh">看不清</a>
