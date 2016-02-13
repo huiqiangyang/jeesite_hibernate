@@ -1,6 +1,7 @@
 package com.thinkgem.jeesite.modules.exam.web;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.DateUtils;
@@ -14,15 +15,15 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
+
+import static com.thinkgem.jeesite.common.utils.StringUtils.abbr;
 
 /**
  * Created by Administrator on 2016/2/10.
@@ -59,7 +60,7 @@ public class ExamineController extends BaseController {
         return "modules/exam/examForm";
     }
 
-    @RequiresPermissions("exam:teacher:delete")
+    @RequiresPermissions("exam:teacher:edit")
     @RequestMapping(value = "delete")
     public String delete(String id, RedirectAttributes redirectAttributes) {
         examineService.delete(id);
@@ -100,6 +101,29 @@ public class ExamineController extends BaseController {
         return "redirect:" + Global.getAdminPath() + "/exam/?repage";
     }
 
+
+
+    @RequestMapping(value = "examineNodes")
+    @ResponseBody
+    @RequiresPermissions(value = "exam:teacher:view")
+    public List<Map<String, Object>> examineNodes(String classify, HttpServletResponse response) {
+        response.setContentType("application/json; charset=UTF-8");
+        List<Map<String, Object>> mapList = Lists.newArrayList();
+
+        Examine examine = new Examine();
+        examine.setClassify(classify);
+
+        Page<Examine> page= new Page<Examine>(1,20);
+        Page<Examine> examineList = examineService.find(page, examine);
+        for (Examine exam: examineList.getList()) {
+            Map<String, Object> map = Maps.newHashMap();
+            map.put("id", exam.getId());
+            map.put("pId", 0);
+            map.put("name", abbr(exam.getTitle(),20));
+            mapList.add(map);
+        }
+        return mapList;
+    }
 
 
 }

@@ -25,48 +25,45 @@
     <!--carousel items-->
     <div class="carousel-inner">
         <c:forEach items="${fnc:getIndexArticleList(5)}" var="article" varStatus="status">
-            <c:if test="${status.first}">
-                <div class="active item">
-                    <img src="${pageContext.request.contextPath}${article.image}" style="width: 940px;height: 350px"
-                         class="img-rounded" alt="${article.title}"/>
-                    <div class="carousel-caption">
-                        <h3>${article.title}</h3>
-                        <p>${article.description}</p>
-                        <p><a href="${article.url}" class="btn btn-primary btn-mid">&nbsp;&nbsp;&nbsp;查看详情 &raquo;&nbsp;&nbsp;&nbsp;</a>
-                        </p>
+            <c:choose>
+                <c:when test="${status.first}">
+                    <div class="active item">
+                        <img src="${pageContext.request.contextPath}${article.image}" style="width: 940px;height: 350px"
+                             class="img-rounded" alt="${article.title}"/>
+
+                        <div class="carousel-caption">
+                            <h3>${article.title}</h3>
+
+                            <p>${fns:rabbr(article.description,200)}</p>
+
+                            <p><a href="${article.url}" class="btn btn-primary btn-mid">&nbsp;&nbsp;&nbsp;查看详情 &raquo;&nbsp;&nbsp;&nbsp;</a>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </c:if>
-            <c:if test="${!status.first}">
-                <div class="item">
-                    <img src="${pageContext.request.contextPath}${article.image}" style="width: 940px;height: 350px"
-                         class="img-rounded" alt="${article.title}"/>
-                    <div class="carousel-caption">
-                        <h3>${article.title}</h3>
-                        <p>${article.description}</p>
-                        <p><a href="${article.url}" class="btn btn-primary btn-mid">&nbsp;&nbsp;&nbsp;查看详情 &raquo;&nbsp;&nbsp;&nbsp;</a>
-                        </p>
+                </c:when>
+                <c:otherwise>
+                    <div class="item">
+                        <img src="${pageContext.request.contextPath}${article.image}" style="width: 940px;height: 350px"
+                             class="img-rounded" alt="${article.title}"/>
+
+                        <div class="carousel-caption">
+                            <h3>${article.title}</h3>
+
+                            <p>${fns:rabbr(article.description,200)}</p>
+
+                            <p><a href="${article.url}" class="btn btn-primary btn-mid">&nbsp;&nbsp;&nbsp;查看详情 &raquo;&nbsp;&nbsp;&nbsp;</a>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </c:if>
+                </c:otherwise>
+            </c:choose>
         </c:forEach>
 
     </div>
     <!--Carousel nav-->
-    <a href="#myCarousel" class="carousel-control left" data-slide="pre">&lsaquo;</a>
+    <a href="#myCarousel" class="carousel-control left" data-slide="prev">&lsaquo;</a>
     <a href="#myCarousel" class="carousel-control right" data-slide="next">&rsaquo;</a>
 </div>
-<%--<div class="hero-unit" style="padding-bottom:35px;margin:10px 0;">
-    <c:set var="article" value="${fnc:getArticle('1')}"/>
-    <h1>${fns:abbr(article.title,28)}</h1>
-
-    <p></p>
-
-    <p>${fns:abbr(fns:replaceHtml(article.articleData.content),260)}</p>
-
-    <p><a href="${article.url}" class="btn btn-primary btn-large">&nbsp;&nbsp;&nbsp;查看详情 &raquo;&nbsp;&nbsp;&nbsp;</a>
-    </p>
-</div>--%>
 
 <div class="row">
     <div class="span4">

@@ -71,7 +71,7 @@
             <form:options items="${fns:getDictList('exam_type')}" itemLabel="label" itemValue="value"
                           htmlEscape="false"/>
         </form:select>
-        <label>创建结束：</label>
+        <label>创建开始：</label>
         <input id="createDateStart" name="createDateStart" type="text" readonly="readonly" maxlength="20"
                class="input-small Wdate" value="<fmt:formatDate value="${examine.createDateStart}" pattern="yyyy-MM-dd"/>"
                onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});"/>
@@ -109,10 +109,10 @@
             <td><a href="${examine.imageSrc}" target="_blank">${fns:abbr(examine.imageSrc,30)}</a></td>
             <td>${examine.createBy.name}</td>
             <td><fmt:formatDate value="${examine.updateDate}" type="both"/></td>
-            <shiro:hasPermission name="exam:teacher:delete">
+            <shiro:hasPermission name="exam:teacher:edit">
                 <td>
                     <a href="${ctx}/exam/form?id=${examine.id}">修改</a>
-                    <a href="${ctx}/exam/delete?id=${examine.id}" onclick="return confirmx('确认要删除该用户吗？', this.href)">删除</a>
+                    <a href="${ctx}/exam/delete?id=${examine.id}" onclick="return confirmx('确认要删除该题目吗？', this.href)">删除</a>
                 </td>
             </shiro:hasPermission>
         </tr>

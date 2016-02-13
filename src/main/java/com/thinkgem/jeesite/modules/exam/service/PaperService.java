@@ -1,5 +1,6 @@
 package com.thinkgem.jeesite.modules.exam.service;
 
+import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.BaseService;
 import com.thinkgem.jeesite.common.utils.StringUtils;
@@ -14,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/2/10.
  */
@@ -23,6 +27,9 @@ public class PaperService extends BaseService {
 
     @Autowired
     private PaperDao paperDao;
+
+    @Autowired
+    private ExamineDao examineDao;
 
 
     public Paper get(String id) {
@@ -35,7 +42,7 @@ public class PaperService extends BaseService {
             dc.add(Restrictions.in("id", getIdList(paper.getIds())));
         }
         if (StringUtils.isNotBlank(paper.getName())) {
-            dc.add(Restrictions.eq("name",paper.getName()));
+            dc.add(Restrictions.like("name", "%" + paper.getName() + "%"));
         }
         if (paper.getCreateDateStart() != null) {
             dc.add(Restrictions.ge("createDate", paper.getCreateDateStart()));
@@ -59,5 +66,22 @@ public class PaperService extends BaseService {
     @Transactional(readOnly = false)
     public void save(Paper paper) {
         paperDao.save(paper);
+    }
+
+    @Transactional(readOnly = false)
+    public int assignExamine2Paper(Paper paper, String[] idsArr) {
+        paper.setExamineList(null);
+        int size = 0;
+        ArrayList<String> examineIds = Lists.newArrayList(paper.getExamineIds().split(","));
+        ArrayList<Examine> examineList = Lists.newArrayList();
+        for (String examineId : idsArr) {
+            if (!examineIds.contains(examineId)) {
+                examineList.add(examineDao.get(examineId));
+                size++;
+            }
+        }
+        paper.setExamineList(examineList);
+        paperDao.save(paper);
+        return size;
     }
 }

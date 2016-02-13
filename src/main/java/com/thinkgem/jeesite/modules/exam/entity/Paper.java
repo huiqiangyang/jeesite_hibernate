@@ -3,6 +3,7 @@ package com.thinkgem.jeesite.modules.exam.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.persistence.IdEntity;
+import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
 import com.thinkgem.jeesite.common.utils.excel.fieldtype.RoleListType;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
@@ -15,6 +16,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +35,7 @@ public class Paper extends IdEntity<Paper> {
     private static final long serialVersionUID = 1L;
 
     private String name;   //试卷名称
-    private List<Examine> examineList = Lists.newArrayList();   //试卷对应的试题
+    private List<Examine> examineList = new ArrayList<Examine>(0);   //试卷对应的试题
 
     public Paper() {
         super();
@@ -44,7 +46,7 @@ public class Paper extends IdEntity<Paper> {
         this.id = id;
     }
 
-    @Length(min = 0,max = 255)
+    @Length(min = 0, max = 255)
     @Column(name = "name")
     public String getName() {
         return name;
@@ -58,11 +60,26 @@ public class Paper extends IdEntity<Paper> {
     @JoinTable(name = "exam_paper_examine", joinColumns = {
             @JoinColumn(name = "paper_id", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "examine_id", nullable = false, updatable = false)})
+    @OrderBy("classify ASC")
     public List<Examine> getExamineList() {
         return examineList;
     }
 
     public void setExamineList(List<Examine> examineList) {
         this.examineList = examineList;
+    }
+
+
+    @Transient
+    public String getExamineIds() {
+        List<String> examineIdsList = Lists.newArrayList();
+        if (examineList==null||examineList.size()==0) {
+            return "";
+        } else {
+            for (Examine examine : examineList) {
+                examineIdsList.add(examine.getId());
+            }
+            return StringUtils.join(examineIdsList, ",");
+        }
     }
 }

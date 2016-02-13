@@ -2,13 +2,9 @@ package com.thinkgem.jeesite.modules.exam.web;
 
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.common.utils.excel.ExportExcel;
 import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.modules.exam.entity.Examine;
 import com.thinkgem.jeesite.modules.exam.entity.Paper;
-import com.thinkgem.jeesite.modules.exam.service.ExamineService;
 import com.thinkgem.jeesite.modules.exam.service.PaperService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,26 +50,55 @@ public class PaperController extends BaseController {
     @RequiresPermissions(value = "exam:teacher:edit")
     public String form(Model model, Paper paper) {
         model.addAttribute("paper", paper);
-        return "modules/exam/examForm";
+        return "modules/exam/paperForm";
     }
 
-    @RequiresPermissions("exam:teacher:delete")
+
+    @RequestMapping(value = "examAssign")
+    @RequiresPermissions(value = "exam:teacher:edit")
+    public String examAssign(Model model, Paper paper) {
+        model.addAttribute("paper", paper);
+        return "modules/exam/examAssign";
+    }
+
+    @RequestMapping(value = "examine2Paper")
+    @RequiresPermissions(value = "exam:teacher:edit")
+    public String examine2Paper(Model model, Paper paper) {
+        model.addAttribute("paper", paper);
+        model.addAttribute("selectIds", paper.getExamineIds());
+        return "modules/exam/examine2Paper";
+    }
+
+    @RequestMapping(value = "assignExamine")
+    @RequiresPermissions(value = "exam:teacher:edit")
+    public String assignExamine(Paper paper, String[] idsArr, RedirectAttributes redirectAttributes) {
+        if (Global.isDemoMode()) {
+            addMessage(redirectAttributes, "演示模式，不允许操作！");
+            return "redirect:" + Global.getAdminPath() + "/exam/paper/examAssign?id=" + paper.getId();
+        }
+        int  size = paperService.assignExamine2Paper(paper, idsArr);
+        addMessage(redirectAttributes, "已成功分配 " + size + " 个题目");
+        return "redirect:" + Global.getAdminPath() + "/exam/paper/examAssign?id=" + paper.getId();
+
+    }
+
+    @RequiresPermissions("exam:teacher:edit")
     @RequestMapping(value = "delete")
     public String delete(String id, RedirectAttributes redirectAttributes) {
         paperService.delete(id);
         addMessage(redirectAttributes, "删除试卷成功");
-        return "redirect:"+ Global.getAdminPath()+"/exam/paper";
+        return "redirect:" + Global.getAdminPath() + "/exam/paper";
     }
 
     @RequiresPermissions("exam:teacher:edit")
     @RequestMapping(value = "save")
     public String save(Paper paper, Model model, RedirectAttributes redirectAttributes) {
-        if (!beanValidator(model, paper)){
-            return form(model,paper);
+        if (!beanValidator(model, paper)) {
+            return form(model, paper);
         }
         paperService.save(paper);
         addMessage(redirectAttributes, "保存试卷成功");
-        return "redirect:"+Global.getAdminPath()+"/exam/paper";
+        return "redirect:" + Global.getAdminPath() + "/exam/paper";
     }
 
 

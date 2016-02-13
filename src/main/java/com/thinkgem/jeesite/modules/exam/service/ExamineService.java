@@ -61,4 +61,5 @@ public class ExamineService extends BaseService{
     public void save(Examine examine) {
         examineDao.save(examine);
     }
+
 }
