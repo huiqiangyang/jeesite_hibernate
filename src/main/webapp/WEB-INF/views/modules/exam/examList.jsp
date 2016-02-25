@@ -67,7 +67,7 @@
     <div style="margin-top:8px;">
         <label>试题类型：</label>
         <form:select path="classify">
-            <form:option value="0" label="全部题型" htmlEscape="false"/>
+            <form:option value="0" label="全部题型"/>
             <form:options items="${fns:getDictList('exam_type')}" itemLabel="label" itemValue="value"
                           htmlEscape="false"/>
         </form:select>

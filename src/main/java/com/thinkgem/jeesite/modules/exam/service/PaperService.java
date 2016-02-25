@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by Administrator on 2016/2/10.
+ * Created by Huiqiang
+ * on 2016/2/10.
  */
 @Service
 @Transactional(readOnly = true)
@@ -36,7 +36,7 @@ public class PaperService extends BaseService {
         return paperDao.get(id);
     }
 
-    public Page<Paper> find(Page<Paper> page, Paper paper) {
+    public Page<Paper> find(Page<Paper> page, Paper paper,Boolean delFlag) {
         DetachedCriteria dc = paperDao.createDetachedCriteria();
         if (StringUtils.isNotBlank(paper.getIds())) {
             dc.add(Restrictions.in("id", getIdList(paper.getIds())));
@@ -50,8 +50,9 @@ public class PaperService extends BaseService {
         if (paper.getCreateDateEnd() != null) {
             dc.add(Restrictions.le("createDate", paper.getCreateDateEnd()));
         }
-
-        dc.add(Restrictions.eq("delFlag", Examine.DEL_FLAG_NORMAL));
+        if(delFlag){
+            dc.add(Restrictions.eq("delFlag","0"));
+        }
         dc.createAlias("createBy", "createBy");
         dc.createAlias("createBy.office", "office");
         dc.add(dataScopeFilter(UserUtils.getUser(), "office", "createBy"));
@@ -61,6 +62,16 @@ public class PaperService extends BaseService {
     @Transactional(readOnly = false)
     public void delete(String id) {
         paperDao.deleteById(id);
+    }
+
+    @Transactional(readOnly = false)
+    public void del(String id) {
+        paperDao.delById(id);
+    }
+
+    @Transactional(readOnly = false)
+    public void start(String id) {
+        paperDao.startById(id);
     }
 
     @Transactional(readOnly = false)

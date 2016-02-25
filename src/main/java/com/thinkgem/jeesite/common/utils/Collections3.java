@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Maps;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -176,4 +177,20 @@ public class Collections3 {
 		return list;
 	}
 
+    /**
+     * 1=12  => HashMap<1,12>
+     * @param strings
+     * @return
+     */
+     public static Map<String,String> strings2HashMap(String []strings){
+         Map<String,String> map = Maps.newHashMap();
+         for (String str:strings){
+             if(str.split("=").length>1) {
+                 map.put(str.split("=")[0], str.split("=")[1]);
+             }else{
+                 map.put(str.split("=")[0],"");
+             }
+         }
+         return map;
+     }
 }

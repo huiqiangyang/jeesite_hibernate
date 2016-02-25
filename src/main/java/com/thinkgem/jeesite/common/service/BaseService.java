@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.modules.exam.entity.Examine;
+import com.thinkgem.jeesite.modules.exam.entity.Score;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Junction;

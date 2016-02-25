@@ -15,10 +15,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $.backstretch([
-                "${ctxStatic}/images/bg1.jpg",
+                "${ctxStatic}/images/bg4.jpg",
+                "${ctxStatic}/images/bg3.jpg",
+                "${ctxStatic}/images/bg5.jpg",
                 "${ctxStatic}/images/bg2.jpg",
-                "${ctxStatic}/images/bg3.jpg"
-            ], {duration: 10000, fade: 2000});
+                "${ctxStatic}/images/bg1.jpg"
+            ], {duration: 10000, fade: 3000});
 
             $("#loginForm").validate({
                 rules: {
@@ -89,16 +91,16 @@
                 </div>
                 <c:if test="${isValidateCodeLogin}">
                     <div class="validateCode">
-                        <label for="validateCode">验证码：</label>
                         <tags:validateCode name="validateCode" inputCssStyle="margin-bottom:0;"/>
                     </div>
                 </c:if>
             </div>
             <div class="footer">
-                <label class="checkbox inline">
-                    <input type="checkbox" id="rememberMe" name="rememberMe"> <span style="color:#08c;">记住我</span>
-                </label>
                 <input class="btn btn-primary" type="submit" value="登 录"/>
+                <label for="rememberMe" title="下次不需要再登录">
+                    <input type="checkbox" id="rememberMe" name="rememberMe"/>
+                    <font style="font-size: 13px">记住我（公共场所慎用）</font>
+                </label>
             </div>
             <div id="themeSwitch" class="dropdown pull-right">
                 <a class="dropdown-toggle" data-toggle="dropdown"

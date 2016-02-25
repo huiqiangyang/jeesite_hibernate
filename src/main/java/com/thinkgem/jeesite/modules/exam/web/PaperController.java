@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by Administrator on 2016/2/10.
+ * Created by Huiqiang
+ * on 2016/2/10.
  */
 @Controller
 @RequestMapping(value = "${adminPath}/exam/paper")
@@ -40,11 +41,12 @@ public class PaperController extends BaseController {
     @RequestMapping(value = {"list", ""})
     @RequiresPermissions(value = "exam:teacher:view")
     public String paperList(Model model, Paper paper, HttpServletRequest request, HttpServletResponse response) {
-        Page<Paper> page = paperService.find(new Page<Paper>(request, response), paper);
+        Page<Paper> page = paperService.find(new Page<Paper>(request, response), paper,false);
         model.addAttribute("page", page);
         model.addAttribute("paper", paper);
         return "modules/exam/paperList";
     }
+
 
     @RequestMapping(value = "form")
     @RequiresPermissions(value = "exam:teacher:edit")
@@ -86,7 +88,23 @@ public class PaperController extends BaseController {
     @RequestMapping(value = "delete")
     public String delete(String id, RedirectAttributes redirectAttributes) {
         paperService.delete(id);
+        addMessage(redirectAttributes, "停用试卷成功");
+        return "redirect:" + Global.getAdminPath() + "/exam/paper";
+    }
+
+    @RequiresPermissions("exam:teacher:edit")
+    @RequestMapping(value = "del")
+    public String del(String id, RedirectAttributes redirectAttributes) {
+        paperService.del(id);
         addMessage(redirectAttributes, "删除试卷成功");
+        return "redirect:" + Global.getAdminPath() + "/exam/paper";
+    }
+
+    @RequiresPermissions("exam:teacher:edit")
+    @RequestMapping(value = "start")
+    public String start(String id, RedirectAttributes redirectAttributes) {
+        paperService.start(id);
+        addMessage(redirectAttributes, "启用试卷成功");
         return "redirect:" + Global.getAdminPath() + "/exam/paper";
     }
 
@@ -101,5 +119,31 @@ public class PaperController extends BaseController {
         return "redirect:" + Global.getAdminPath() + "/exam/paper";
     }
 
+    @RequiresPermissions({"exam:teacher:edit","exam:student:export"})
+    @RequestMapping(value = "export")
+    public String export(Paper paper, Model model) {
+
+        return null;
+    }
+
+
+    //********************学生端*************************************
+
+    @RequestMapping(value = "stu/list")
+    @RequiresPermissions(value = "exam:student:view")
+    public String stuPaperList(Model model, Paper paper, HttpServletRequest request, HttpServletResponse response) {
+        Page<Paper> page = paperService.find(new Page<Paper>(request, response), paper,true);
+        model.addAttribute("page", page);
+        model.addAttribute("paper", paper);
+        return "modules/exam/stuPaperList";
+    }
+
+
+    @RequestMapping(value = "stu/online")
+    @RequiresPermissions(value = "exam:student:edit")
+    public String stuPaperOnline(Model model, Paper paper) {
+        model.addAttribute("paper", paper);
+        return "modules/exam/stuPaperOnline";
+    }
 
 }

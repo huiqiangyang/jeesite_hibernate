@@ -35,7 +35,9 @@ public class Paper extends IdEntity<Paper> {
     private static final long serialVersionUID = 1L;
 
     private String name;   //试卷名称
+    private String time;    //考试时长
     private List<Examine> examineList = new ArrayList<Examine>(0);   //试卷对应的试题
+    private List<Score> scoreList = Lists.newArrayList();   //试卷对应的成绩
 
     public Paper() {
         super();
@@ -56,11 +58,20 @@ public class Paper extends IdEntity<Paper> {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "exam_paper_examine", joinColumns = {
             @JoinColumn(name = "paper_id", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "examine_id", nullable = false, updatable = false)})
-    @OrderBy("classify ASC")
+    @OrderBy(value = "classify ASC")
     public List<Examine> getExamineList() {
         return examineList;
     }
@@ -69,11 +80,20 @@ public class Paper extends IdEntity<Paper> {
         this.examineList = examineList;
     }
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "paper")
+    @OrderBy(value = "createDate ASC")
+    public List<Score> getScoreList() {
+        return scoreList;
+    }
+
+    public void setScoreList(List<Score> scoreList) {
+        this.scoreList = scoreList;
+    }
 
     @Transient
     public String getExamineIds() {
         List<String> examineIdsList = Lists.newArrayList();
-        if (examineList==null||examineList.size()==0) {
+        if (examineList == null || examineList.size() == 0) {
             return "";
         } else {
             for (Examine examine : examineList) {
@@ -82,4 +102,19 @@ public class Paper extends IdEntity<Paper> {
             return StringUtils.join(examineIdsList, ",");
         }
     }
+
+    @Transient
+    public List<Integer> getScoreNumbers() {
+        List<Integer> scoreNumberList = Lists.newArrayList();
+        for (Score score : scoreList) {
+            scoreNumberList.add(score.getNumber());
+        }
+        return scoreNumberList;
+    }
+
+    @Transient
+    public Integer getScoreSize() {
+        return scoreList.size();
+    }
+
 }

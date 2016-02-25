@@ -55,7 +55,7 @@
         <label class="control-label">答案:</label>
 
         <div class="controls">
-            <form:textarea path="answer" htmlEscape="false" cssClass="input-xxlarge"></form:textarea>
+            <form:textarea path="answer" htmlEscape="false" cssClass="input-xxlarge" required="true"></form:textarea>
         </div>
     </div>
     <div class="control-group">

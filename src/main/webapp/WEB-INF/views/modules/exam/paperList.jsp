@@ -82,8 +82,16 @@
                 <td>
                     <a href="${ctx}/exam/paper/form?id=${paper.id}">修改</a>
                     <a href="${ctx}/exam/paper/examAssign?id=${paper.id}">试题分配</a>
-                    <a href="${ctx}/exam/paper/delete?id=${paper.id}"
-                       onclick="return confirmx('确认要删除该试卷吗？', this.href)">删除</a>
+                    <c:choose>
+                        <c:when test="${paper.delFlag==0}">
+                            <a href="${ctx}/exam/paper/delete?id=${paper.id}"
+                               onclick="return confirmx('确认要停用该试卷吗？', this.href)">停用</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${ctx}/exam/paper/start?id=${paper.id}"
+                               onclick="return confirmx('确认要启用该试卷吗？', this.href)">启用</a>
+                        </c:otherwise>
+                    </c:choose>
                     <a href="${ctx}/exam/paper/export?id=${paper.id}">导出</a>
                 </td>
             </shiro:hasPermission>
@@ -91,10 +99,21 @@
         <tr id="c_${paper.id}" style="background:#fdfdfd;display:none;">
             <td colspan="6">
                 <c:forEach items="${paper.examineList}" var="examine" varStatus="status">
-                    <p><strong>${status.index+1}、${examine.title}</strong><br/>
+                    <c:if test="${same != status.current.classify}"><h5>${examine.classifyDictLabel}</h5></c:if>
+                    <c:if test="${empty same or same!=status.current.classify}">
+                        <c:set var="same" value="${status.current.classify}"></c:set>
+                    </c:if>
+
+                    <p>
+                    <blockquote><strong>${status.index+1}、${examine.title}</strong><br/>
                         <c:if test="${not empty examine.imageSrc}">
-                            <img src="${examine.imageSrc}" width="200px" alt="${fns:abbr(examine.title,15)}"/>
-                        </c:if></p>
+                            <img src="${examine.imageSrc}" style="width: 200px;margin-left: 5%"
+                                 alt="${fns:abbr(examine.title,15)}"/>
+                        </c:if></blockquote>
+                    </p>
+                    <c:if test="${status.last}">
+                        <c:remove var="same"></c:remove>
+                    </c:if>
                 </c:forEach>
             </td>
         </tr>

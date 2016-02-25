@@ -7,14 +7,14 @@ import com.thinkgem.jeesite.modules.exam.dao.ExamineDao;
 import com.thinkgem.jeesite.modules.exam.entity.Examine;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by Administrator on 2016/2/10.
+ * Created by Huiqiang
+ * on 2016/2/10.
  */
 @Service
 @Transactional(readOnly = true)

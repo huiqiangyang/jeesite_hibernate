@@ -26,7 +26,8 @@ import java.util.Map;
 import static com.thinkgem.jeesite.common.utils.StringUtils.abbr;
 
 /**
- * Created by Administrator on 2016/2/10.
+ * Created by Huiqiang
+ * on 2016/2/10.
  */
 @Controller
 @RequestMapping(value = "${adminPath}/exam")
@@ -113,7 +114,7 @@ public class ExamineController extends BaseController {
         Examine examine = new Examine();
         examine.setClassify(classify);
 
-        Page<Examine> page= new Page<Examine>(1,20);
+        Page<Examine> page= new Page<Examine>(1,200);
         Page<Examine> examineList = examineService.find(page, examine);
         for (Examine exam: examineList.getList()) {
             Map<String, Object> map = Maps.newHashMap();

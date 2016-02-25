@@ -79,6 +79,7 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "${adminPath}")
 	public String index(HttpServletRequest request, HttpServletResponse response) {
 		User user = UserUtils.getUser();
+
 		// 未登录，则跳转到登录页
 		if(user.getId() == null){
 			return "redirect:"+Global.getAdminPath()+"/login";

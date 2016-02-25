@@ -43,4 +43,16 @@
     <cache name="com.thinkgem.jeesite.modules.sys.entity.User.roleList" maxEntriesLocalHeap="100" eternal="false"
            overflowToDisk="true" maxEntriesLocalDisk="100000"/>
 
+    <cache name="com.thinkgem.jeesite.modules.exam.entity.Examine" maxEntriesLocalHeap="100" eternal="false"
+           overflowToDisk="true" maxEntriesLocalDisk="100000"/>
+    <cache name="com.thinkgem.jeesite.modules.exam.entity.Paper" maxEntriesLocalHeap="100" eternal="false"
+           overflowToDisk="true" maxEntriesLocalDisk="100000"/>
+    <cache name="com.thinkgem.jeesite.modules.exam.entity.Paper.examineList" maxEntriesLocalHeap="100" eternal="false"
+           overflowToDisk="true" maxEntriesLocalDisk="100000"/>
+    <cache name="com.thinkgem.jeesite.modules.exam.entity.Paper.scoreList" maxEntriesLocalHeap="100" eternal="false"
+           overflowToDisk="true" maxEntriesLocalDisk="100000"/>
+    <cache name="com.thinkgem.jeesite.modules.exam.entity.Score" maxEntriesLocalHeap="100" eternal="false"
+           overflowToDisk="true" maxEntriesLocalDisk="100000"/>
+
+
 </ehcache>

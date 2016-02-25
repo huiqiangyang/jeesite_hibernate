@@ -21,7 +21,9 @@ import java.util.regex.Pattern;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.QueryHint;
 
+import com.thinkgem.jeesite.modules.exam.entity.Paper;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
@@ -304,18 +306,37 @@ public class BaseDao<T> {
 		return update("update "+entityClass.getSimpleName()+" set delFlag='" + BaseEntity.DEL_FLAG_DELETE + "' where id = :p1", 
 				new Parameter(id));
 	}
-	
+
+	/**
+	 * 逻辑启用
+	 * @param id
+	 * @return
+	 */
+	public int startById(Serializable id){
+		return update("update "+entityClass.getSimpleName()+" set delFlag='" + BaseEntity.DEL_FLAG_NORMAL + "' where id = :p1",
+				new Parameter(id));
+	}
+
 	/**
 	 * 逻辑删除
 	 * @param id
-	 * @param likeParentIds
 	 * @return
 	 */
 	public int deleteById(Serializable id, String likeParentIds){
 		return update("update "+entityClass.getSimpleName()+" set delFlag = '" + BaseEntity.DEL_FLAG_DELETE + "' where id = :p1 or parentIds like :p2",
 				new Parameter(id, likeParentIds));
 	}
-	
+
+	/**
+	 * 彻底删除
+	 * @param id
+	 * @return
+	 */
+	public void delById(Serializable id){
+        getSession().delete(get(id));
+	}
+
+
 	/**
 	 * 更新删除标记
 	 * @param id

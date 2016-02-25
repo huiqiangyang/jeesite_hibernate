@@ -112,7 +112,7 @@ public class Examine extends IdEntity<Examine> {
     }
 
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "examineList")
+    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "examineList")
     public List<Paper> getPaperList() {
         return paperList;
     }
