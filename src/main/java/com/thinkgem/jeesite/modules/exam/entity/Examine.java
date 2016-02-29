@@ -20,6 +20,7 @@ import javax.persistence.Entity;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,6 +72,7 @@ public class Examine extends IdEntity<Examine> {
 
 
     @Length(min = 0, max = 255)
+    @ExcelField(title = "图片",sort = 40)
     public String getImage() {
         return image;
     }
@@ -121,7 +123,6 @@ public class Examine extends IdEntity<Examine> {
     }
 
     @Transient
-    @ExcelField(title = "图片",sort = 40)
     public String getImageSrc() {
         return CmsUtils.formatImageSrcToWeb(this.image);
     }

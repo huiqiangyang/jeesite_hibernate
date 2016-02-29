@@ -2420,7 +2420,6 @@ var Reveal = (function(){
 				if( element.nodeName.match( /section/gi ) ) {
 					var h = parseInt( element.getAttribute( 'data-index-h' ), 10 ),
 						v = parseInt( element.getAttribute( 'data-index-v' ), 10 );
-
 					slide( h, v );
 				}
 

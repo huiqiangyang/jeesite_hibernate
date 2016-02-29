@@ -5,7 +5,7 @@
 <head>
     <title>${fns:getConfig('productName')} 登录</title>
     <meta name="decorator" content="default"/>
-    <link rel="stylesheet" href="${ctxStatic}/common/typica-login.css">
+    <link rel="stylesheet" href="${ctxStatic}/common/typica-login.min.css">
     <style type="text/css">
         .control-group {
             border-bottom: 0px;

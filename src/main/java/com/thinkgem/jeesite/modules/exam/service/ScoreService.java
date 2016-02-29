@@ -108,8 +108,8 @@ public class ScoreService extends BaseService {
         data.add(map4);
 
         Map map5 = Maps.newHashMap();
-        map5.put("value", scoreDao.count(scoreDao.createDetachedCriteria().add(Restrictions.lt("number", 60))
-                .createAlias("createBy.office", "office").add(dataScopeFilter(UserUtils.getUser(), "office", "createBy"))));
+        map5.put("value", scoreDao.count(scoreDao.createDetachedCriteria().add(Restrictions.lt("number", 60))));
+                //.createAlias("createBy.office", "office").add(dataScopeFilter(UserUtils.getUser(), "office", "createBy"))));
         map5.put("name", "不及格 <60分");
         data.add(map5);
 

@@ -59,6 +59,7 @@ public class ExamineService extends BaseService{
 
     @Transactional(readOnly = false)
     public void save(Examine examine) {
+        examineDao.clear();
         examineDao.save(examine);
     }
 

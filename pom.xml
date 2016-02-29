@@ -570,6 +570,14 @@
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>${poi.version}</version>
         </dependency>
+        <!-- 自定义jar依赖包
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>3.11-20141221</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/poi-scratchpad-3.11-20141221.jar</systemPath>
+        </dependency>-->
 
         <!-- image util -->
         <dependency>
@@ -620,14 +628,6 @@
         </dependency>
         <!-- TEST end -->
 
-        <!-- 自定义jar依赖包
-        <dependency>
-            <groupId>com.test</groupId>
-            <artifactId>test-core</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/test-core-1.0.jar</systemPath>
-        </dependency> -->
 
     </dependencies>
 
